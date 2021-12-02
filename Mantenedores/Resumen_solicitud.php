@@ -1,4 +1,6 @@
-
+<?php
+require_once 'conexion_p.php';
+?>
 
 <!doctype html>
 <html lang="es">
@@ -37,12 +39,11 @@
                     </div>
 
                     <?php
-                        require('conexion_p.php');
-                        $consulta2 = "SELECT COUNT(Codigo_solicitud) FROM solicitud WHERE YEAR('Creada_solicitud') = YEAR(CURDATE()) AS 'anual' ";
+                        $consulta2 = "SELECT COUNT(Codigo_solicitud) AS `anual` FROM solicitud WHERE YEAR('Creada_solicitud') = YEAR(CURDATE()) ";
                         $resultado2 = mysqli_query($conexion, $consulta2);
                         $row2 = mysqli_fetch_assoc($resultado2);
                         $anual = $row2['anual'];
-                        
+                    
                     ?>
                     
                     <canvas class="my-4" id="Grafico_mensual" width="900" height="380"></canvas>
@@ -68,7 +69,6 @@
                                     </tr>
                                 </thead>
                                 <?php
-                                require('conexion_p.php');
                                 $consulta = "SELECT * FROM `solicitud` ORDER BY `Creada_solicitud` DESC";
                                 $resultado = mysqli_query($conexion, $consulta);
                                 while ($row = mysqli_fetch_assoc($resultado)) {
